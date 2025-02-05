@@ -1,3 +1,26 @@
 from django.shortcuts import render
+from .models import Movie
+def index(request):
+    search_term = request.GET.get('search')
+    if search_term:
+        movies = Movie.objects.filter(title__icontains=search_term)
+    else:
+        movies = Movie.objects.all()
 
-# Create your views here.
+    # template_data = {}
+    # template_data['title'] = 'Movies'
+    # template_data['movies'] = movies
+    template_data = {
+        'name': 'Movies',
+        'movies': movies
+    }
+    return render(request, 'movies/index.html', {'template_data': template_data})
+
+def show(request, id):
+    movie = Movie.objects.get(id=id)
+
+    template_data = {}
+    template_data['name'] = movie.name
+    template_data['movie'] = movie
+    return render(request, 'movies/show.html',
+                  {'template_data': template_data})
