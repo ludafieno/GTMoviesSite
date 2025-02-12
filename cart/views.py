@@ -34,8 +34,9 @@ def purchase(request):
     cart = request.session.get('cart', {})
     movie_ids = list(cart.keys())
 
-    if (movie_ids != []):
+    if not movie_ids:
         return redirect('cart.index')
+
     movies_in_cart = Movie.objects.filter(id__in=movie_ids)
     cart_total = calculate_cart_total(cart, movies_in_cart)
 
@@ -49,7 +50,7 @@ def purchase(request):
         item.movie = movie
         item.price = movie.price
         item.order = order
-        item.quantity = cart[str(movie.id)]
+        item.quantity = int(cart[str(movie.id)])
         item.save()
 
     request.session['cart'] = {}
