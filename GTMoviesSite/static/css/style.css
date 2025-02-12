@@ -5,6 +5,11 @@ html, body {
     flex-direction: column;
 }
 
+.card-body {
+    max-height: 70px;
+    overflow: scroll;
+}
+
 .main-content {
     flex: 1;
 }
