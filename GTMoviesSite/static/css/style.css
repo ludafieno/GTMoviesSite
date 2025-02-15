@@ -6,6 +6,7 @@ html, body {
 }
 
 .movie-card {
+    width: auto;
     max-height: 70px;
     overflow: scroll;
 }
